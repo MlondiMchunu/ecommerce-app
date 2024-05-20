@@ -17,7 +17,7 @@ mongoose.connect(process.env.DATABASE,{}).then(()=>console.log("DB Connected!!")
 //middlewares
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-spp.use(cookieParser())
+app.use(cookieParser())
 
 //routes middleware
 app.use("/api",userRoutes)
