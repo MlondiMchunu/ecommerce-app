@@ -1,5 +1,6 @@
 const User = require('../models/user');
 
+
 exports.userById = async (req,res,next,id)=>{
    //Query.prototype.exec() no longer
    //accepts a callback
