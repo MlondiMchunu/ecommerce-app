@@ -1,0 +1,3 @@
+- This is a multi-tier ecommerce application that uses React, NodeJS and MongoDB.
+- It uses MVC architecture
+- APIs are tested using Postman
