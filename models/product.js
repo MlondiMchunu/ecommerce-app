@@ -20,12 +20,23 @@ const productSchema = new mongoose.Schema({
         maxlength: 32
     },
     category: {
-        type: ObjectId,
+        type: ObjectId, 
         ref: 'Category',
         required: true
+    },
+    quantity:{
+        type: Number
+    },
+    photo:{
+        data: Buffer,
+        contentType: String
+    },
+    shipping:{
+        required: false,
+        type: Boolean
     }
 },
     { timestamps: true }
 );
 
-module.exports = mongoose("Product",productSchema);
+module.exports = mongoose.model("Product",productSchema);
