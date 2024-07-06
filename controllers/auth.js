@@ -121,7 +121,9 @@ exports.isAuth = (req, res, next)=>{
     let user = req.profile && req.auth && req.profile._id == req.auth._id
         if(!user){
             return res.status(403).json({
-                error: "Access denied"
+                error: "User can't be authenticated!",
+                error2: "req profile id " + req.profile._id +"///"+ req.profile,
+                error3: "req auth id " + req.auth._id + "///"+req.auth
             });
         }
 
