@@ -2,6 +2,7 @@ const Category = require('../models/category');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 /*
+callbacks no longer supported
 exports.create = (req,res)=>{
     const category = new Category(req.body);
     category.save((err,data)=>{
