@@ -22,16 +22,29 @@ exports.create = (req, res) => {
 
 
         if (files.photo) {
-            try {
-                product.photo.data = fs.readFileSync(files.photo.path);
-                product.photo.contentType = files.photo.type;
-            } catch (readError) {
-                console.error("Error reading the uploaded file:", readError);
+            //LOg the entire files.photo object
+            console.log("files.photo : ", files.photo);
+
+            if (files.photo.path && files.photo.type) {//validate path and type
+                try {
+                    product.photo.data = fs.readFileSync(files.photo.path);
+                    product.photo.contentType = files.photo.type;
+                } catch (readError) {
+                    console.error("Error reading the uploaded file:", readError);
+                    return res.status(400).json({
+                        error: "Error reading the uploaded file",
+                        details: readError.message
+                    });
+                }
+            }else{
                 return res.status(400).json({
-                    error: "Error reading the uploaded file",
-                    details: readError.message
+                    error: "Invalid file upload"
                 });
             }
+        } else{
+            return res.status(400).json({
+                error:"No file uploaded"
+            });
         }
 
         product.save((err, result) => {
