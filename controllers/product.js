@@ -1,4 +1,4 @@
-const formidable = require("formidable")
+const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs")
 const Product = require("../models/product")
@@ -10,6 +10,7 @@ exports.create = (req, res) => {
 
     form.parse(req, (err, fields, files) => {
         if (err) {
+            console.error("Form parse error:",err);
             return res.status(400).json({
                 error: "Image could not be uploaded"
             });
@@ -21,7 +22,7 @@ exports.create = (req, res) => {
         console.log("Fields: ", fields);
 
 
-        if (files.photo) {
+       /* if (files.photo) {
             //LOg the entire files.photo object
             console.log("files.photo : ", files.photo);
 
@@ -29,6 +30,7 @@ exports.create = (req, res) => {
                 try {
                     product.photo.data = fs.readFileSync(files.photo.path);
                     product.photo.contentType = files.photo.type;
+                    product.customPhoto = true;
                 } catch (readError) {
                     console.error("Error reading the uploaded file:", readError);
                     return res.status(400).json({
@@ -46,15 +48,32 @@ exports.create = (req, res) => {
                 error:"No file uploaded"
             });
         }
+            */
 
-        product.save((err, result) => {
+        /*product.save((err, result) => {
             if (err) {
+                console.error("Error saving poduct:",err);
                 return res.status(400).json({
                     error: errorHandler(err)
                 });
             }
             res.json(result);
-        });
+        }); */
+
+       const saveProduct = async (req,res)=>{
+        try{
+            const result = await product.save();
+            res.json(result);
+        }catch(err){
+            console.error("Error saving product:",err);
+            return res.status(400).json({
+                error:errorHandler(err)
+            });
+        }
+       }
+
+       saveProduct(req,res);
+
 
     });
 };
